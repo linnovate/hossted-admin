@@ -11,6 +11,7 @@ export default async (req, res) => {
     } else {
       res.send({ error: domain + 'is not allowed to connect' })
     }
-  }else {
-    res.send('Sorry no anonoymous or unauthorised access allowed to this page')
-  } 
+  } else {
+    res.send({ error: 'Sorry no anonoymous or unauthorised access allowed to this page'})
+  }
+}
