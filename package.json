@@ -25,6 +25,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "mysql":"latest",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "aws-sdk":"latest"
   }
 }
