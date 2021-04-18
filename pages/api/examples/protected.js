@@ -5,7 +5,7 @@ export default async (req, res) => {
   const session = await getSession({ req })
   
   if (session){
-    const domain = session.user.email.split('@')[0];
+    const domain = session.user.email.split('@')[1];
     if (domain === 'linnovate.net') {
       res.send({ content: 'This is protected content. You can access this content because you are signed in.' })
     } else {

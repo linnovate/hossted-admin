@@ -9,7 +9,7 @@ export default async (req, res) => {
     if (domain === 'linnovate.net') {
       res.send({ content: 'This is protected content. You can access this content because you are signed in.' })
     } else {
-      res.send({ error: domain + 'is not allowed to connect' })
+      res.send({ content: domain + ' is not a linnovate or a hossted domain' })
     }
   } else {
     res.send({ error: 'Sorry no anonoymous or unauthorised access allowed to this page'})
