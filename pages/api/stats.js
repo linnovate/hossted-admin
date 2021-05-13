@@ -1,6 +1,6 @@
 
 export default async (req, res) => {
-    console.log(JSON.stringify(req.body));
+    console.log(req.body);
     console.log(req.protocol)     // "https"
     console.log(req.hostname)     // "example.com"
     console.log(req.path)         // "/creatures"
