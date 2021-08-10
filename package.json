@@ -20,12 +20,17 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "next": "^10.0.7",
+    "@aws-sdk/client-s3": "^3.25.0",
+    "aws-sdk": "latest",
+    "csv-parser": "^3.0.0",
+    "csvtojson": "^2.0.10",
+    "mysql": "latest",
+    "next": "^10.2.3",
     "next-auth": "latest",
     "react": "^17.0.1",
+    "react-data-table-component": "^7.0.0-rc2",
     "react-dom": "^17.0.1",
-    "mysql":"latest",
     "sqlite3": "^5.0.2",
-    "aws-sdk":"latest"
+    "styled-components": "^5.3.0"
   }
 }
