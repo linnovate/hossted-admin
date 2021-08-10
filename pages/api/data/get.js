@@ -46,13 +46,13 @@ async function getCsv(data) {
 
 export default async (req, res) => {
   const session = await getSession({ req })
-    let data = await getData()
-    data = await getCsv(data)
-    res.send({ data: data})
+
   if (session){
     const domain = session.user.email.split('@')[1];
     if (domain === 'linnovate.net') {
-
+        let data = await getData()
+        data = await getCsv(data)
+        res.send({ data: data})
     } else {
       res.send({ error: domain + 'is not allowed to connect' })
     }
