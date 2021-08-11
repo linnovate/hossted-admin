@@ -9,7 +9,6 @@ function aggregateData(data) {
 
 export default async (req, res) => {
     let session = await getSession({ req })
-    console.log(process.env.accessKeyId)
     // dev
     // session = {user: {email: 'cheskel@linnovate.net'}}
     if (session){
