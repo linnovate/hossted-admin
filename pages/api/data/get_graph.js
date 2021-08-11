@@ -40,10 +40,12 @@ export default async (req, res) => {
                 for (let month of Object.keys(results)) {
                     entry.data.push(results[month][offerId] || 0)
                 }
-                graphData.push(entry)
+                if (entry.data.some(v => v)){
+                  graphData.push(entry)
+                }
             }
+            graphData.sort((a,b) => b.data.reduce((a,b) => a+b, 0) - a.data.reduce((a,b) => a+b, 0))
           
-        //   console.log(graphData)
           res.send({ series: graphData, months: months})
       } else {
         res.send({ error: domain + 'is not allowed to connect' })
