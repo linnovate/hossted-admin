@@ -22,10 +22,10 @@ function getClient() {
   return client
 }
 
-async function getData(s3Key) {
+async function getData(bucket, s3Key) {
   const client = getClient()
   const command = new s3.GetObjectCommand({
-      Bucket: 'hossted-test-reports',
+      Bucket: bucket,
       Key: s3Key
   })
   try {
@@ -47,14 +47,14 @@ async function getCsv(data) {
 
 
 
-module.exports.getObjectCsv = async function getObjectCsv(s3Key) {
-    let data = await getData(s3Key)
+module.exports.getObjectCsv = async function getObjectCsv(bucket, s3Key) {
+    let data = await getData(bucket, s3Key)
     data = await getCsv(data)
     return data
 }
 
-module.exports.getObjectJson = async function getObjectCsv(s3Key) {
-  let data = await getData(s3Key)
+module.exports.getObjectJson = async function getObjectCsv(bucket, s3Key) {
+  let data = await getData(bucket, s3Key)
   data = JSON.parse(data)
   return data
 }
