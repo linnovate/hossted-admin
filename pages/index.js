@@ -2,6 +2,7 @@ import Layout from '../components/layout'
 import dynamic from 'next/dynamic';
 import { useSession } from 'next-auth/client'
 import { useState, useEffect } from 'react'
+import AccessDenied from '../components/access-denied'
 
 
 const ChartWithNoSSR = dynamic(() => import('react-apexcharts'), {
