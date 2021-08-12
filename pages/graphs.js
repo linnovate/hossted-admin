@@ -52,7 +52,7 @@ export default function Page () {
                 curve: 'smooth',
             },
             title: {
-                text: 'Hours per offer / month',
+                text: 'HOSSTED AWS usage',
                 align: 'left',
             },
             markers: {
