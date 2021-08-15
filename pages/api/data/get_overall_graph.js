@@ -12,11 +12,13 @@ export default async (req, res) => {
           const graphData = []
           let results = {}
           let months = []
-        //   let productMap = await s3.getObjectCsv('marketplace-hossted', 'ProductFeed_V1/year=2021/month=08/data.csv')
+          let azureData = await s3.getObjectJson('hossted-test-reports', 'azure/azure_overall_usage.json')
+          console.log(azureData)
+          months.push(...azureData.months)
           let data = await s3.getObjectJson('hossted-test-reports', 'from-node/offer_daily_usage.json')
           for (let entry of data) {
             let month = entry.date.split('-').slice(0, 2).join('-')
-            if (!(month in results)) {
+            if (months.indexOf(month) === -1) {
                 months.push(month)
             }
             delete entry.date
@@ -28,10 +30,12 @@ export default async (req, res) => {
             name: 'Aws',
             data: []
         }
-        for (let month of Object.keys(results)) {
-            entry.data.push(results[month])
+        for (let month of months) {
+            entry.data.push(results[month] || 0)
         }
+        console.log(months)
         graphData.push(entry)
+        graphData.push(azureData.data[0])
         // graphData.sort((a,b) => b.data.reduce((a,b) => a+b, 0) - a.data.reduce((a,b) => a+b, 0))
         console.log(graphData)
         res.send({ series: graphData, months: months})

@@ -24,7 +24,7 @@ export default function Page () {
     // Fetch content from protected route
     useEffect(()=>{
       const fetchData = async () => {
-        const res = await fetch('/api/data/get_graph')
+        const res = await fetch('/api/data/get_azure_detailed')
         const json = await res.json()
         let data = {}
         data.series = json.series
@@ -52,7 +52,7 @@ export default function Page () {
                 curve: 'smooth',
             },
             title: {
-                text: 'HOSSTED AWS usage',
+                text: 'HOSSTED Azure usage',
                 align: 'left',
             },
             markers: {
