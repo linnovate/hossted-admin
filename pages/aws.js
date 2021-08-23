@@ -24,7 +24,7 @@ export default function Page () {
     // Fetch content from protected route
     useEffect(()=>{
       const fetchData = async () => {
-        const res = await fetch('/api/data/get_graph')
+        const res = await fetch('/api/data/aws_detailed')
         const json = await res.json()
         let data = {}
         data.series = json.series
@@ -84,7 +84,7 @@ export default function Page () {
 
 
     // If no session exists, display access denied message
-    if (!session) { return  <Layout><AccessDenied/></Layout> }
+    // if (!session) { return  <Layout><AccessDenied/></Layout> }
   
     // If session exists, display content
 
