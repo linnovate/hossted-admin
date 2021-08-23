@@ -63,7 +63,7 @@ module.exports.getObjectJson = async function getObjectCsv(bucket, s3Key) {
 
 module.exports.listBucket = async function listBucket(bucket) {
   const client = getClient()
-  const command = new s3.ListObjectsCommand({Bucket: bucket})
+  const command = new s3.ListObjectsV2Command({Bucket: bucket})
   const res = await client.send(command)
   return res
 }

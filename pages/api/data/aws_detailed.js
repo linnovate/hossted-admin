@@ -10,7 +10,7 @@ function aggregateData(data) {
 export default async (req, res) => {
     let session = await getSession({ req })
     // dev
-    session = {user: {email: 'cheskel@linnovate.net'}}
+    // session = {user: {email: 'cheskel@linnovate.net'}}
     if (session){
       const domain = session.user.email.split('@')[1];
       console.log(domain)
