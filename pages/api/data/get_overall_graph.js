@@ -10,34 +10,18 @@ export default async (req, res) => {
       const domain = session.user.email.split('@')[1];
       if (domain === 'linnovate.net') {
           const graphData = []
-          let results = {}
           let months = []
           let azureData = await s3.getObjectJson('hossted-test-reports', 'azure/azure_overall_usage.json')
-          console.log(azureData)
           months.push(...azureData.months)
-          let data = await s3.getObjectJson('hossted-test-reports', 'from-node/offer_daily_usage.json')
-          for (let entry of data) {
-            let month = entry.date.split('-').slice(0, 2).join('-')
-            if (months.indexOf(month) === -1) {
-                months.push(month)
-            }
-            delete entry.date
-            for (let offerId of Object.keys(entry)) {
-                results[month] = (results[month] || 0) + entry[offerId]
+          let awsData = await s3.getObjectJson('hossted-test-reports', 'aws/overall_data.json')
+          for (let month of azureData.months) {
+            if (awsData.months.indexOf(month) === -1) {
+                awsData.data.unshift(0)
             }
           }
-        const entry = {
-            name: 'Aws',
-            data: []
-        }
-        for (let month of months) {
-            entry.data.push(results[month] || 0)
-        }
-        console.log(months)
-        graphData.push(entry)
+      
+        graphData.push({name: awsData.name, data: awsData.data})
         graphData.push(azureData.data[0])
-        // graphData.sort((a,b) => b.data.reduce((a,b) => a+b, 0) - a.data.reduce((a,b) => a+b, 0))
-        console.log(graphData)
         res.send({ series: graphData, months: months})
       } else {
         res.send({ error: domain + 'is not allowed to connect' })
