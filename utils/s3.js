@@ -2,6 +2,7 @@ const s3 = require('@aws-sdk/client-s3')
 const csv=require('csvtojson')
 
 
+
 const streamToString = (stream) =>
 new Promise((resolve, reject) => {
   const chunks = [];
@@ -34,7 +35,7 @@ async function getData(bucket, s3Key) {
     return bodyContents
 
   } catch (error) {
-    console.log(error)
+    return null
   } 
 }
 
@@ -55,15 +56,28 @@ module.exports.getObjectCsv = async function getObjectCsv(bucket, s3Key) {
 
 module.exports.getObjectJson = async function getObjectCsv(bucket, s3Key) {
   let data = await getData(bucket, s3Key)
-  data = JSON.parse(data)
-  return data
+  if (data) {
+    data = JSON.parse(data)
+    return data
+  } else {
+    return {}
+  }
+
 }
 
 
-
-module.exports.listBucket = async function listBucket(bucket) {
+module.exports.putObject = async function putObject(bucket, key, data) {
+  const command = new s3.PutObjectCommand({Bucket: bucket, Key: key, Body: data})
   const client = getClient()
-  const command = new s3.ListObjectsV2Command({Bucket: bucket})
+  const res = await client.send(command)
+  return res
+
+}
+
+
+module.exports.listBucket = async function listBucket(bucket, prefix= null) {
+  const client = getClient()
+  const command = new s3.ListObjectsV2Command({Bucket: bucket, Prefix: prefix})
   const res = await client.send(command)
   return res
 }
