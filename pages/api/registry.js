@@ -7,6 +7,12 @@ function getmachine(machines, ip) {
     return machines.find(e => e.ip === ip)
 }
 
+function deleteMachine(machines, ip) {
+    let index = machines.findIndex(e => e.ip === ip)
+    machines.splice(index, 1)
+    return machines
+}
+
 export default async (req, res) => {
   let session = await getSession({ req })
   // add password pro
@@ -23,11 +29,13 @@ export default async (req, res) => {
             let homepage = url.searchParams.get('url')
             let user = url.searchParams.get('user')
             let pass = url.searchParams.get('pass')
+            let product = url.searchParams.get('product')
             let data = {
                 ip: ip,
                 url: homepage,
                 user: user,
-                pass: pass
+                pass: pass,
+                product: product,
             }
             machines.push(data)
             registry.data = machines
@@ -35,8 +43,23 @@ export default async (req, res) => {
             res.send({ message: 'success'})
         } else if (req.method == 'GET') {
             let ip = url.searchParams.get('ip')
-            let machine = getmachine(machines, ip)
-            res.status(200).json(machine)
+            if (ip) {
+                let machine = getmachine(machines, ip)
+                res.status(200).json(machine)
+            } else {
+                res.status(200).json(machines)
+            }
+          } else if (req.method == 'DELETE') {
+            let ip = url.searchParams.get('ip')
+            if (ip) {
+                deleteMachine(machines, ip)
+                registry.data = machines
+                s3.putObject('hossted-test-reports', 'registry/db.json', JSON.stringify(registry))
+                res.send({ message: 'success'})
+            }
+            else {
+                res.send("no ip!")
+            }
           }
     } else {
       res.send({ content: domain + ' is not a linnovate or a hossted domain' })
