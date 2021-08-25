@@ -9,7 +9,7 @@ function getmachine(machines, ip) {
 
 function deleteMachine(machines, ip) {
     let index = machines.findIndex(e => e.ip === ip)
-    if (index >= 0) {
+    if (!(index >= 0)) {
       machines.splice(index, 1)
       return false
     }
