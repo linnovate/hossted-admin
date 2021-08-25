@@ -23,7 +23,6 @@ export default async (req, res) => {
         let registry = await s3.getObjectJson('hossted-test-reports', 'registry/db.json')
         let machines = registry.data || []
         let url = new URL('https://admin.hossted.com' + req.url)
-        console.log(req.headers)
         if (req.method === 'POST') {
           if (req.headers.authorization == `Basic ${process.env.post_api_key}`) {
             let ip = url.searchParams.get('ip')
@@ -38,10 +37,15 @@ export default async (req, res) => {
                 pass: pass,
                 product: product,
             }
-            machines.push(data)
-            registry.data = machines
-            s3.putObject('hossted-test-reports', 'registry/db.json', JSON.stringify(registry))
-            res.send({ message: 'success'})
+            if (ip) {
+              machines.push(data)
+              registry.data = machines
+              s3.putObject('hossted-test-reports', 'registry/db.json', JSON.stringify(registry))
+              res.send({ message: 'success'})
+            } else {
+              res.send({ message: 'got no ip!!!1'})
+            }
+
           } else {
             res.send({ message: 'unauthorized'})
           }
