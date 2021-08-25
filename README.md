@@ -1,5 +1,5 @@
 # NextAuth.js Example
-t1
+
 [next-auth-example.now.sh](https://next-auth-example.now.sh)
 
 ## About this project
