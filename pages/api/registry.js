@@ -9,7 +9,10 @@ function getmachine(machines, ip) {
 
 function deleteMachine(machines, ip) {
     let index = machines.findIndex(e => e.ip === ip)
-    machines.splice(index, 1)
+    if (index >= 0) {
+      machines.splice(index, 1)
+      return false
+    }
     return machines
 }
 
@@ -65,8 +68,7 @@ export default async (req, res) => {
           } else if (req.method == 'DELETE') {
             if (req.headers.authorization == `Basic ${process.env.read_api_key}`) {
               let ip = url.searchParams.get('ip')
-              if (ip) {
-                  deleteMachine(machines, ip)
+              if (deleteMachine(machines, ip)) {
                   registry.data = machines
                   s3.putObject('hossted-test-reports', 'registry/db.json', JSON.stringify(registry))
                   res.send({ message: 'success'})
