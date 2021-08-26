@@ -56,74 +56,73 @@ function updateMachine(machines, ip, update) {
 
 export default async (req, res) => {
   let session = await getSession({ req })
-  // add password pro
-  session = {user: {email: 'cheskel@linnovate.net'}}
+
+  // dev
+  // session = {user: {email: 'cheskel@linnovate.net'}}
   if (session){
     const domain = session.user.email.split('@')[1];
     if (domain === 'linnovate.net') {
-        let registry = await s3.getObjectJson('hossted-test-reports', 'registry/db.json')
-        let machines = registry.data || []
-        let url = new URL('https://admin.hossted.com' + req.url)
-        if (req.method === 'POST') {
-          if (req.headers.authorization == `Basic ${process.env.post_api_key}`) {
-            machines = addMachine(machines, url.searchParams)
-            if (machines) {
-              registry.data = machines
-              s3.putObject('hossted-test-reports', 'registry/db.json', JSON.stringify(registry))
-              res.send({ message: 'success'})
-            } else {
-              res.send({ message: 'ip already exists'})
-            }
+      req.headers.authorization = `Basic ${process.env.read_api_key}`
+    }
+  }
+  let registry = await s3.getObjectJson('hossted-test-reports', 'registry/db.json')
+  let machines = registry.data || []
+  let url = new URL('https://admin.hossted.com' + req.url)
+  if (req.method === 'POST') {
+    if (req.headers.authorization == `Basic ${process.env.post_api_key}`) {
+      machines = addMachine(machines, url.searchParams)
+      if (machines) {
+        registry.data = machines
+        s3.putObject('hossted-test-reports', 'registry/db.json', JSON.stringify(registry))
+        res.send({ message: 'success'})
+      } else {
+        res.send({ message: 'ip already exists'})
+      }
 
-          } else {
-            res.send({ message: 'unauthorized'})
-          }
+    } else {
+      res.send({ message: 'unauthorized'})
+    }
 
-        } else if (req.method == 'GET') {
-          if (req.headers.authorization == `Basic ${process.env.read_api_key}`) {
-            let ip = url.searchParams.get('ip')
-            if (ip) {
-                let machine = getmachine(machines, ip)
-                res.status(200).json(machine)
-            } else {
-                res.status(200).json(machines)
-            }
-          } else {
-            res.send({ message: 'unauthorized'})
-          }
-          } else if (req.method == 'DELETE') {
-            if (req.headers.authorization == `Basic ${process.env.read_api_key}`) {
-              let ip = url.searchParams.get('ip')
-              if (deleteMachine(machines, ip)) {
-                  registry.data = machines
-                  s3.putObject('hossted-test-reports', 'registry/db.json', JSON.stringify(registry))
-                  res.send({ message: 'success'})
-              }
-              else {
-                  res.send({ message: 'ip was not found'})
-              }
-          } else {
-            res.send({ message: 'unauthorized'})
-          }
-        } else if (req.method == 'PATCH') {
-          if (req.headers.authorization == `Basic ${process.env.read_api_key}`) {
-            let ip = url.searchParams.get('ip')
-            machines = updateMachine(machines, ip, url.searchParams)
-            if (machines) {
-                registry.data = machines
-                s3.putObject('hossted-test-reports', 'registry/db.json', JSON.stringify(registry))
-                res.send({ message: 'success'})
-            }
-            else {
-                res.send({ message: 'ip was not found'})
-            }
-        } else {
-          res.send({ message: 'unauthorized'})
+  } else if (req.method == 'GET') {
+    if (req.headers.authorization == `Basic ${process.env.read_api_key}`) {
+      let ip = url.searchParams.get('ip')
+      if (ip) {
+          let machine = getmachine(machines, ip)
+          res.status(200).json(machine)
+      } else {
+          res.status(200).json(machines)
+      }
+    } else {
+      res.send({ message: 'unauthorized'})
+    }
+    } else if (req.method == 'DELETE') {
+      if (req.headers.authorization == `Basic ${process.env.read_api_key}`) {
+        let ip = url.searchParams.get('ip')
+        if (deleteMachine(machines, ip)) {
+            registry.data = machines
+            s3.putObject('hossted-test-reports', 'registry/db.json', JSON.stringify(registry))
+            res.send({ message: 'success'})
+        }
+        else {
+            res.send({ message: 'ip was not found'})
         }
     } else {
-      res.send({ content: domain + ' is not a linnovate or a hossted domain' })
+      res.send({ message: 'unauthorized'})
     }
+  } else if (req.method == 'PATCH') {
+    if (req.headers.authorization == `Basic ${process.env.read_api_key}`) {
+      let ip = url.searchParams.get('ip')
+      machines = updateMachine(machines, ip, url.searchParams)
+      if (machines) {
+          registry.data = machines
+          s3.putObject('hossted-test-reports', 'registry/db.json', JSON.stringify(registry))
+          res.send({ message: 'success'})
+      }
+      else {
+          res.send({ message: 'ip was not found'})
+      }
   } else {
-    res.send({ error: 'Sorry no anonoymous or unauthorised access allowed to this page'})
+    res.send({ message: 'unauthorized'})
   }
-}}
+  }
+}
