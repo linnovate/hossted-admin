@@ -9,11 +9,28 @@ function getmachine(machines, ip) {
 
 function deleteMachine(machines, ip) {
     let index = machines.findIndex(e => e.ip === ip)
-    if (!(index >= 0)) {
+    if (index >= 0) {
       machines.splice(index, 1)
-      return false
+      return machines
     }
-    return machines
+    return false
+}
+
+
+function updateMachine(machines, ip, update) {
+  let index = machines.findIndex(e => e.ip === ip)
+     if (index >= 0) {
+      let machine = machines[index]
+      machine.url = update.get('url') || machine.url
+      machine.user = update.get('user') || machine.user
+      machine.pass = update.get('pass') || machine.pass
+      machine.product = update.get('product') || machine.product
+      machine.status = update.get('status') || machine.status
+      console.log(machine.status)
+      machines[index] = machine
+      return machines
+    }
+    return false
 }
 
 export default async (req, res) => {
@@ -33,12 +50,14 @@ export default async (req, res) => {
             let user = url.searchParams.get('user')
             let pass = url.searchParams.get('pass')
             let product = url.searchParams.get('product')
+            let status = url.searchParams.get('status')
             let data = {
                 ip: ip,
                 url: homepage,
                 user: user,
                 pass: pass,
                 product: product,
+                status: status
             }
             if (ip) {
               machines.push(data)
@@ -74,11 +93,25 @@ export default async (req, res) => {
                   res.send({ message: 'success'})
               }
               else {
-                  res.send("no ip!")
+                  res.send({ message: 'ip was not found'})
               }
           } else {
             res.send({ message: 'unauthorized'})
           }
+        } else if (req.method == 'PATCH') {
+          if (req.headers.authorization == `Basic ${process.env.read_api_key}`) {
+            let ip = url.searchParams.get('ip')
+            machines = updateMachine(machines, ip, url.searchParams)
+            if (machines) {
+                registry.data = machines
+                s3.putObject('hossted-test-reports', 'registry/db.json', JSON.stringify(registry))
+                res.send({ message: 'success'})
+            }
+            else {
+                res.send({ message: 'ip was not found'})
+            }
+        } else {
+          res.send({ message: 'unauthorized'})
         }
     } else {
       res.send({ content: domain + ' is not a linnovate or a hossted domain' })
@@ -86,4 +119,4 @@ export default async (req, res) => {
   } else {
     res.send({ error: 'Sorry no anonoymous or unauthorised access allowed to this page'})
   }
-}
+}}
