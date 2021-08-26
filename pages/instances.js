@@ -23,11 +23,6 @@ const columns = [
       sortable: true
     },
     {
-      name: 'Password',
-      selector: 'pass',
-      sortable: true
-    },
-    {
       name: 'Product',
       selector: 'product',
       sortable: true
