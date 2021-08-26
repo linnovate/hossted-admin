@@ -16,6 +16,28 @@ function deleteMachine(machines, ip) {
     return false
 }
 
+function addMachine(machines, update) {
+  let ip = update.get('ip')
+  if (!(machines.findIndex(e => e.ip === ip) >= 0)) {
+    let homepage = update.get('url')
+    let user = update.get('user')
+    let pass = update.get('pass')
+    let product = update.get('product')
+    let status = update.get('status')
+    let machine = {
+      ip: ip,
+      url: homepage,
+      user: user,
+      pass: pass,
+      product: product,
+      status: status
+    }
+    machines.push(machine)
+    return machines
+  }
+  return false
+}
+
 
 function updateMachine(machines, ip, update) {
   let index = machines.findIndex(e => e.ip === ip)
@@ -26,7 +48,6 @@ function updateMachine(machines, ip, update) {
       machine.pass = update.get('pass') || machine.pass
       machine.product = update.get('product') || machine.product
       machine.status = update.get('status') || machine.status
-      console.log(machine.status)
       machines[index] = machine
       return machines
     }
@@ -45,27 +66,13 @@ export default async (req, res) => {
         let url = new URL('https://admin.hossted.com' + req.url)
         if (req.method === 'POST') {
           if (req.headers.authorization == `Basic ${process.env.post_api_key}`) {
-            let ip = url.searchParams.get('ip')
-            let homepage = url.searchParams.get('url')
-            let user = url.searchParams.get('user')
-            let pass = url.searchParams.get('pass')
-            let product = url.searchParams.get('product')
-            let status = url.searchParams.get('status')
-            let data = {
-                ip: ip,
-                url: homepage,
-                user: user,
-                pass: pass,
-                product: product,
-                status: status
-            }
-            if (ip) {
-              machines.push(data)
+            machines = addMachine(machines, url.searchParams)
+            if (machines) {
               registry.data = machines
               s3.putObject('hossted-test-reports', 'registry/db.json', JSON.stringify(registry))
               res.send({ message: 'success'})
             } else {
-              res.send({ message: 'got no ip!!!1'})
+              res.send({ message: 'ip already exists'})
             }
 
           } else {
