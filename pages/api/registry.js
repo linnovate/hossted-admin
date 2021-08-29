@@ -24,13 +24,19 @@ function addMachine(machines, update) {
     let pass = update.get('pass')
     let product = update.get('product')
     let status = update.get('status')
+    let cpunum = update.get('cpunum')
+    let mem = update.get('mem')
+    let rootsize = update.get('rootsize')
     let machine = {
       ip: ip,
       url: homepage,
       user: user,
       pass: pass,
       product: product,
-      status: status
+      status: status,
+      cpunum: cpunum,
+      mem: mem,
+      rootsize: rootsize
     }
     machines.push(machine)
     return machines
@@ -48,6 +54,9 @@ function updateMachine(machines, ip, update) {
       machine.pass = update.get('pass') || machine.pass
       machine.product = update.get('product') || machine.product
       machine.status = update.get('status') || machine.status
+      machine.cpunum = update.get('cpunum') || machine.cpunum
+      machine.mem = update.get('mem') || machine.mem
+      machine.rootsize = update.get('rootsize') || machine.rootsize
       machines[index] = machine
       return machines
     }
