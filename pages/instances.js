@@ -29,11 +29,6 @@ const columns = [
       sortable: true
     },
     {
-      name: 'Status',
-      selector: 'status',
-      sortable: true
-    },
-    {
       name: 'CPU number',
       selector: 'cpunum',
       sortable: true
@@ -52,7 +47,12 @@ const columns = [
       name: 'Cloud',
       selector: 'cloud',
       sortable: true
-    }
+    },
+    {
+      name: 'Status',
+      selector: 'status',
+      sortable: true
+    },
   ];
 
 export default function Page () {
