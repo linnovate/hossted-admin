@@ -14,6 +14,11 @@ const columns = [
       sortable: true,
     },
     {
+      name: 'Date',
+      selector: 'date',
+      sortable: true
+    },
+    {
       name: 'URL',
       selector: 'url',
       sortable: true

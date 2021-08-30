@@ -27,10 +27,12 @@ function addMachine(machines, update) {
     let cpunum = update.get('cpunum')
     let mem = update.get('mem')
     let rootsize = update.get('rootsize')
+    let date = new Date()
     let cloud = update.get('cloud')
     let machine = {
       ip: ip,
       url: homepage,
+      date: date,
       user: user,
       pass: pass,
       product: product,
