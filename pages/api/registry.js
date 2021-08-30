@@ -27,6 +27,7 @@ function addMachine(machines, update) {
     let cpunum = update.get('cpunum')
     let mem = update.get('mem')
     let rootsize = update.get('rootsize')
+    let cloud = update.get('cloud')
     let machine = {
       ip: ip,
       url: homepage,
@@ -36,7 +37,8 @@ function addMachine(machines, update) {
       status: status,
       cpunum: cpunum,
       mem: mem,
-      rootsize: rootsize
+      rootsize: rootsize,
+      cloud: cloud
     }
     machines.push(machine)
     return machines
@@ -57,6 +59,7 @@ function updateMachine(machines, ip, update) {
       machine.cpunum = update.get('cpunum') || machine.cpunum
       machine.mem = update.get('mem') || machine.mem
       machine.rootsize = update.get('rootsize') || machine.rootsize
+      machine.cloud = update.get('cloud') || machine.cloud
       machines[index] = machine
       return machines
     }

@@ -31,6 +31,21 @@ const columns = [
       name: 'Status',
       selector: 'status',
       sortable: true
+    },
+    {
+      name: 'CPU number',
+      selector: 'cpunum',
+      sortable: true
+    },
+    {
+      name: 'Mem',
+      selector: 'mem',
+      sortable: true
+    }, 
+    {
+      name: 'Cloud',
+      selector: 'cloud',
+      sortable: true
     }
   ];
 
