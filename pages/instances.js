@@ -9,13 +9,13 @@ import Head from 'next/head'
 
 const columns = [
     {
-      name: 'IP',
-      selector: 'ip',
+      name: 'Date',
+      selector: 'date',
       sortable: true,
     },
     {
-      name: 'Date',
-      selector: 'date',
+      name: 'IP',
+      selector: 'ip',
       sortable: true
     },
     {
