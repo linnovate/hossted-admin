@@ -73,7 +73,7 @@ export default function Page () {
   if (typeof window !== 'undefined' && loading) return null
 
   // If no session exists, display access denied message
-  // if (!session) { return  <Layout><AccessDenied/></Layout> }
+  if (!session) { return  <Layout><AccessDenied/></Layout> }
 
   // If session exists, display content
   return (
