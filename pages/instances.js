@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/client'
 import Layout from '../components/layout'
 import AccessDenied from '../components/access-denied'
 import DataTable from 'react-data-table-component';
+import Head from 'next/head'
 
 
 
@@ -72,10 +73,15 @@ export default function Page () {
   if (typeof window !== 'undefined' && loading) return null
 
   // If no session exists, display access denied message
-  if (!session) { return  <Layout><AccessDenied/></Layout> }
+  // if (!session) { return  <Layout><AccessDenied/></Layout> }
 
   // If session exists, display content
   return (
+    <>
+    <Head>
+        <title>Instances</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    </Head>
     <Layout>
       <DataTable
         title="Instances"
@@ -83,5 +89,6 @@ export default function Page () {
         data={data}
       />
   </Layout>
+  </>
     )
 }
