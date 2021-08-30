@@ -41,7 +41,12 @@ const columns = [
       name: 'Mem',
       selector: 'mem',
       sortable: true
-    }, 
+    },
+    {
+      name: 'Root size',
+      selector: 'rootsize',
+      sortable: true
+    },
     {
       name: 'Cloud',
       selector: 'cloud',
