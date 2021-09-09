@@ -91,12 +91,13 @@ export default function Page () {
 
     return (
       <Layout>
-        <ApexChart
+        {/* <ApexChart
         options={graphData.options}
         series={graphData.series}
         type="line"
         height={420}
-        />
+        /> */}
+    <iframe className='kibana-iframe' src="https://kibana-14.dev.aks.linnovate.net/app/visualize#/edit/00253940-1153-11ec-99da-bb9b9b878429?embed=true&_g=(filters%3A!()%2Cquery%3A(language%3Akuery%2Cquery%3A'')%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1y%2Fd%2Cto%3Anow))" height="600" width="800"></iframe>
     </Layout>
       )
   }

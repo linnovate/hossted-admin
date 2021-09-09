@@ -28,3 +28,9 @@ iframe {
   border-radius: .5rem;
   filter: invert(1);
 }
+
+
+.kibana-iframe {
+  height: 30rem;
+
+}
