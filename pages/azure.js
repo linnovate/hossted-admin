@@ -90,15 +90,14 @@ export default function Page () {
 
 
     return (
-    //   <Layout>
-        /* <ApexChart
+     <Layout>
+        {/* <ApexChart
         options={graphData.options}
         series={graphData.series}
         type="line"
         height={420}
-        /> */
+        /> */}
     <iframe className='kibana-iframe' src="https://kibana-14.dev.aks.linnovate.net/app/visualize#/edit/d51da2d0-13cf-11ec-99da-bb9b9b878429?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1y%2Fd%2Cto%3Anow))" height="600" width="800"></iframe>
-    // <iframe className='kibana-iframe' src="https://kibana-14.dev.aks.linnovate.net/app/visualize#/edit/b0dc61f0-13c9-11ec-99da-bb9b9b878429?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1y%2Fd%2Cto%3Anow))"></iframe>
-    /* </Layout> */
+    </Layout>
       )
   }
