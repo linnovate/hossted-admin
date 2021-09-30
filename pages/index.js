@@ -100,9 +100,9 @@ export default function Page () {
       /> */}
     <p>Usage over time</p>
     <p>Aws</p>
-    <iframe className='kibana-iframe-half' src="https://kibana-14.dev.aks.linnovate.net/app/visualize#/edit/edaa5c20-1155-11ec-99da-bb9b9b878429?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-15m%2Cto%3Anow))"></iframe>
+    <iframe className='kibana-iframe-med' src="https://kibana-14.dev.aks.linnovate.net/app/visualize#/edit/edaa5c20-1155-11ec-99da-bb9b9b878429?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-15m%2Cto%3Anow))"></iframe>
     <p>Azure</p>
-    <iframe className='kibana-iframe-half' src="https://kibana-14.dev.aks.linnovate.net/app/visualize#/edit/f56bed80-13a7-11ec-99da-bb9b9b878429?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-15m%2Cto%3Anow))"></iframe>
+    <iframe className='kibana-iframe-med' src="https://kibana-14.dev.aks.linnovate.net/app/visualize#/edit/f56bed80-13a7-11ec-99da-bb9b9b878429?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-15m%2Cto%3Anow))"></iframe>
 
   </Layout>
   )
