@@ -36,7 +36,19 @@ iframe {
   height: 60rem;
 }
 
-.kibana-iframe-half {
+
+.kibana-iframe-huge {
+  width: 100%;
+  height: 60rem;
+}
+
+.kibana-iframe-small {
   width: 100%;
   height: 30rem;
+}
+
+
+.kibana-iframe-med {
+  width: 100%;
+  height: 45rem;
 }

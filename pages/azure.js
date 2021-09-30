@@ -97,7 +97,10 @@ export default function Page () {
         type="line"
         height={420}
         /> */}
+    <p>Usage per offer per week</p>
     <iframe className='kibana-iframe' src="https://kibana-14.dev.aks.linnovate.net/app/visualize#/edit/d51da2d0-13cf-11ec-99da-bb9b9b878429?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1y%2Fd%2Cto%3Anow))" height="600" width="800"></iframe>
+    <p>Usage per user per month</p>
+    <iframe className='kibana-iframe-med' src="https://kibana-14.dev.aks.linnovate.net/app/visualize#/edit/980c2eb0-21c2-11ec-99da-bb9b9b878429?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1y%2Fd%2Cto%3Anow))"></iframe>
     </Layout>
       )
   }
