@@ -84,7 +84,7 @@ export default function Page () {
 
 
     // If no session exists, display access denied message
-    if (!session) { return  <Layout><AccessDenied/></Layout> }
+    // if (!session) { return  <Layout><AccessDenied/></Layout> }
   
     // If session exists, display content
 
@@ -97,7 +97,7 @@ export default function Page () {
         type="line"
         height={420}
         /> */}
-    <iframe className='kibana-iframe' src="https://kibana-14.dev.aks.linnovate.net/app/visualize#/edit/edaa5c20-1155-11ec-99da-bb9b9b878429?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-2y%2Cto%3Anow))" height="600" width="800"></iframe>
+    <iframe className='kibana-iframe' src="https://kibana-14.dev.aks.linnovate.net/app/visualize#/edit/d6764a40-13a9-11ec-99da-bb9b9b878429?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-1y%2Fd%2Cto%3Anow))"></iframe>
     </Layout>
       )
   }
